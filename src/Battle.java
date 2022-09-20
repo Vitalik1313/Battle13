@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import java.io.*;
+
 
 public class Battle {
     private Player [] players = new Player[2];
@@ -17,7 +17,11 @@ public class Battle {
             this.printBarbarianInfo();
             this.fight1vs1();
             System.out.println("---------------------------");
-            
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
         }
         printWinner();
     }

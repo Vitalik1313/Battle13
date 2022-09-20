@@ -110,7 +110,7 @@ public class Player {
             System.out.println(this.name + " barbarian -" + realdamage + "HP.\n");
         }
         else{
-            System.out.println("\tBlocked!");
+            System.out.println("|||Blocked!|||");
         }
     }
 
