@@ -25,8 +25,9 @@ public class Barbarian extends Hero{
         opponent.teamAttacked(power);
     }
 
-    public void getHealed(int heal){
+    public int getHealed(int heal){
         HP +=heal;
+        return  heal;
     }
 
     public int isAlive(){
@@ -39,6 +40,12 @@ public class Barbarian extends Hero{
     public int getHP(){
         return this.HP;
     }
+
+    public Hero getHero(){
+        return this;
+    }
+
+
 }
 
 

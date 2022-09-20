@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import java.io.*;
+
 public class Battle {
     private Player [] players = new Player[2];
 
@@ -8,10 +10,29 @@ public class Battle {
         players[1] = pl2;
     }
 
-   void startFight(){
+    void startFight1vs1(){
+        int i = 1;
+        while(players[0].checkWin() == 1 && players[1].checkWin() == 1){
+            System.out.println("Action: " + i++ + "\n---------------------------");
+            this.printBarbarianInfo();
+            this.fight1vs1();
+            System.out.println("---------------------------");
+            
+        }
+        printWinner();
+    }
+
+    void printBarbarianInfo(){
+        for(int i = 0; i < players.length;i++){
+            System.out.println("Barbarian HP - " + players[i].barbarian.getHP());
+        }
+        System.out.print("\n");
+    }
+
+    void startFight4vs4(){
         while(players[0].checkWin() == 1 && players[1].checkWin() == 1){
             this.printTeamInfo();
-            this.fight();
+            this.fight4vs4();
         }
         printWinner();
     }
@@ -43,7 +64,7 @@ public class Battle {
         }
     }
 
-    void fight(){
+    void fight4vs4(){
         Scanner sc = new Scanner(System.in);
         int choose = 0;
         for(int i = 0;i < players.length;i++){
@@ -59,7 +80,7 @@ public class Battle {
                         choose = 2;
                     case (2):
                         if(players[i].healer.isAlive() == 1) {
-                            players[i].healer.ability(players[i]);
+                            players[i].healer.ability(players[i],players[i+1]);
                             break;
                         }
                         choose = 3;
@@ -83,7 +104,7 @@ public class Battle {
                         choose = 2;
                     case (2):
                         if(players[i].healer.isAlive() == 1) {
-                            players[i].healer.ability(players[i]);
+                            players[i].healer.ability(players[i],players[i-1]);
                             break;
                         }
                         choose = 3;
@@ -100,6 +121,11 @@ public class Battle {
         }
     }
 
+    void fight1vs1(){
+        for(int i = 0;i < players.length;i++){
+            players[i].barbarianGetAttacked(players[i].barbarian.getPower());
+        }
+    }
 
     void printWinner(){
         System.out.println("\t-------------------------");
@@ -109,7 +135,7 @@ public class Battle {
             System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t|");
         }
         else{
-            System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t|\n\t");
+            System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t|\t");
         }
         System.out.println("\t|\t\t\t\t\t\t|");
         System.out.println("\t|\t\t\t\t\t\t|");

@@ -40,8 +40,9 @@ public class Killer extends Hero {
         }
     }
 
-    public void getHealed(int heal){
+    public int getHealed(int heal){
         HP +=heal;
+        return heal;
     }
 
     public int isAlive(){

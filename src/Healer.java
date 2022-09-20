@@ -21,12 +21,14 @@ public class Healer extends Hero {
         return damage;
     }
 
-    public void ability(Player team){
+    public void ability(Player team, Player opponent){
         team.teamHealed();
+        opponent.teamAttacked(10);
     }
 
-    public void getHealed(int heal){
+    public int getHealed(int heal){
         HP +=heal;
+        return heal;
     }
 
     public int isAlive(){
@@ -38,5 +40,9 @@ public class Healer extends Hero {
 
     public int getHP(){
         return HP;
+    }
+
+    public Hero getHero(){
+        return this;
     }
 }
