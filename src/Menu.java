@@ -12,8 +12,13 @@ public class Menu extends JFrame{
     private JButton a4VS4Button;
     private JButton showHeroesButton;
     private JButton EXITButton;
-
+    Battle battle;
     public Menu()  {
+
+        Player team = new Player("Player");
+        Player opponent = new Player("Opponent");
+        battle = new Battle(team, opponent);
+
         setContentPane(MainPanel);
         setTitle("Battle13");
         setSize(450,500);
@@ -22,18 +27,14 @@ public class Menu extends JFrame{
         a1VS1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Player team = new Player("Player",1);
-                Player opponent = new Player("Opponent",1);
-                Battle battle = new Battle(team, opponent);
+                team.setFightType(1);
+                opponent.setFightType(1);
                 battle.startFight1vs1();
             }
         });
         a4VS4Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Player team = new Player("Player",2);
-                Player opponent = new Player("Opponent",2);
-                Battle battle = new Battle(team, opponent);
                 battle.startFight4vs4();
             }
         });
@@ -57,14 +58,15 @@ public class Menu extends JFrame{
             @Override
             public void actionPerformed (ActionEvent e)   {
                 String path = "C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt";
-                System.out.println("\n\tFight description was redirected to file.");
+                /*System.out.println("\n\tFight description was redirected to file.");
                 File file = new File(path);
                 try {
                     PrintStream stream = new PrintStream(file);
                     System.setOut(stream);
                 } catch (IOException exception) {
                     exception.printStackTrace();
-                }
+                }*/
+                battle.setFile();
                 saveFightButton.setBackground(Color.GREEN);
             }
         });

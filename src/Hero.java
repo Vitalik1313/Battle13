@@ -4,4 +4,5 @@ abstract class Hero {
     abstract int getHealed(int heal);
     abstract int isAlive();
     abstract int getHP();
+    abstract void setPower(int newDamage);
 }

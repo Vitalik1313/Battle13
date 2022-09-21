@@ -1,11 +1,19 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 
 
 public class Battle {
     private Player [] players = new Player[2];
-
+    private WriteFile file;
+    private String pathToFile;
     Battle(Player pl1, Player pl2){
+        pathToFile = "C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt";
+        try {
+        file = new WriteFile(pathToFile);
+        } catch(IOException exception){
+            exception.printStackTrace();
+        }
         players[0] = pl1;
         players[1] = pl2;
     }
@@ -137,17 +145,38 @@ public class Battle {
     }
 
     void printWinner(){
-        System.out.println("\t--------------------------");
+        String output = "\t--------------------------\n" +
+                "\t|\t\t\t\t\t\t |\n" +
+                "\t|\t\t\t\t\t\t |\n";
+        /*System.out.println("\t--------------------------");
         System.out.println("\t|\t\t\t\t\t\t |");
-        System.out.println("\t|\t\t\t\t\t\t |");
+        System.out.println("\t|\t\t\t\t\t\t |");*/
+
+
         if(players[0].checkWin() == 1){
-            System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t");
+            output = output.concat("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t\n");
+           // System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t");
         }
         else{
-            System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t");
+            output = output.concat("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t\n");
+            //System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t");
         }
+        output = output.concat("\t|\t\t\t\t\t\t |\n" +
+                "\t|\t\t\t\t\t\t |\n" +
+                "\t--------------------------");
+
+        System.out.println(output);
+
+        if(file.checkWriting()){
+            file.appendString(output);
+            file.writeToFile();
+        }
+        /*System.out.println("\t|\t\t\t\t\t\t |");
         System.out.println("\t|\t\t\t\t\t\t |");
-        System.out.println("\t|\t\t\t\t\t\t |");
-        System.out.println("\t--------------------------");
+        System.out.println("\t--------------------------");*/
+    }
+
+    public void setFile(){
+        file.setSaveFile();
     }
 }

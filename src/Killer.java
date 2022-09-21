@@ -71,4 +71,8 @@ public class Killer extends Hero {
     public int getHP(){
         return this.HP;
     }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
 }

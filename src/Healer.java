@@ -42,7 +42,7 @@ public class Healer extends Hero {
         return HP;
     }
 
-    public Hero getHero(){
-        return this;
+    public void setPower(int power) {
+        this.power = power;
     }
 }

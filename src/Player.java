@@ -1,5 +1,6 @@
 import java.util.Random;
 
+
 public class Player {
     private String name;
     private int win;
@@ -9,20 +10,15 @@ public class Player {
     Killer killer;
     Defender defender;
 
-    Player(String name,int choose) {
+    Player(String name) {
         this.name = name;
         win = 1;
-        if(choose == 1) {
-            fightType = 1;
-            barbarian = new Barbarian();
-        }
-        else {
-            fightType = 2;
-            barbarian = new Barbarian();
-            healer = new Healer();
-            killer = new Killer();
-            defender = new Defender();
-        }
+        fightType = 0;
+        barbarian = new Barbarian();
+        healer = new Healer();
+        killer = new Killer();
+        defender = new Defender();
+
     }
 
     public void teamAttacked(int damage){
@@ -96,22 +92,27 @@ public class Player {
     }
 
     public void barbarianGetAttacked(int damage, Player player){
-        int max = 3;
+        int max = 5;
         int min = 1;
-        int realdamage = 0;
+        int realDamage = 0;
 
         Random defend = new Random();
         System.out.println(player.getName() + " attack info:");
+
         if((defend.nextInt((max - min) + 1) + min ) != 2) {
             max = damage;
             min = damage / 2;
             Random random = new Random();
-            realdamage = barbarian.getDamage(random.nextInt((max - min) + 1) + min);
-            System.out.println(this.name + " barbarian -" + realdamage + "HP.\n");
+            realDamage = barbarian.getDamage(random.nextInt((max - min) + 1) + min);
+            System.out.println(this.name + " barbarian -" + realDamage + "HP.\n");
         }
         else{
             System.out.println("|||Blocked!|||");
+            player.barbarian.setPower(player.barbarian.getPower() + 5);
         }
     }
 
+    public void setFightType(int type){
+        fightType = type;
+    }
 }
