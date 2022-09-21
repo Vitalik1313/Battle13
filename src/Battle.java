@@ -17,18 +17,18 @@ public class Battle {
             this.printBarbarianInfo();
             this.fight1vs1();
             System.out.println("---------------------------");
-            try {
-                Thread.sleep(4000);
+            /*try {
+                Thread.sleep(3000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
-            }
+            }*/
         }
         printWinner();
     }
 
     void printBarbarianInfo(){
         for(int i = 0; i < players.length;i++){
-            System.out.println("Barbarian HP - " + players[i].barbarian.getHP());
+            System.out.println(players[i].getName() + " Barbarian HP - " + players[i].barbarian.getHP());
         }
         System.out.print("\n");
     }
@@ -127,22 +127,27 @@ public class Battle {
 
     void fight1vs1(){
         for(int i = 0;i < players.length;i++){
-            players[i].barbarianGetAttacked(players[i].barbarian.getPower());
+            if(i == 0){
+                players[i+1].barbarianGetAttacked(players[i].barbarian.getPower(), players[i]);
+            }
+            else {
+                players[i-1].barbarianGetAttacked(players[i].barbarian.getPower(),players[i]);
+            }
         }
     }
 
     void printWinner(){
-        System.out.println("\t-------------------------");
-        System.out.println("\t|\t\t\t\t\t\t|");
-        System.out.println("\t|\t\t\t\t\t\t|");
+        System.out.println("\t--------------------------");
+        System.out.println("\t|\t\t\t\t\t\t |");
+        System.out.println("\t|\t\t\t\t\t\t |");
         if(players[0].checkWin() == 1){
-            System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t|");
+            System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t");
         }
         else{
-            System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t|\t");
+            System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t");
         }
-        System.out.println("\t|\t\t\t\t\t\t|");
-        System.out.println("\t|\t\t\t\t\t\t|");
-        System.out.println("\t-------------------------");
+        System.out.println("\t|\t\t\t\t\t\t |");
+        System.out.println("\t|\t\t\t\t\t\t |");
+        System.out.println("\t--------------------------");
     }
 }

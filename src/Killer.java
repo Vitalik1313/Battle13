@@ -23,19 +23,35 @@ public class Killer extends Hero {
         int choice = sc.nextInt();
         int realDamage = 0;
         if(choice == 1 && (opponent.barbarian.isAlive()) == 1){
-            realDamage = opponent.barbarian.getDamage((opponent.barbarian.getHP()/2));
+            if(opponent.barbarian.getHP() == 1){
+                realDamage = opponent.barbarian.getDamage(1);
+            }else {
+                realDamage = opponent.barbarian.getDamage((opponent.barbarian.getHP() / 2));
+            }
             System.out.println(opponent.getName() + " barbarian -" + realDamage + "HP");
         }
         if(choice == 2 && (opponent.healer.isAlive()) == 1){
-            realDamage = opponent.healer.getDamage((opponent.healer.getHP()/2));
+            if(opponent.healer.getHP() == 1){
+                realDamage = opponent.healer.getDamage(1);
+            }else {
+                realDamage = opponent.healer.getDamage((opponent.healer.getHP() / 2));
+            }
             System.out.println(opponent.getName() + " healer -" + realDamage + "HP");
         }
         if(choice == 3 && (opponent.killer.isAlive()) == 1){
-            realDamage = opponent.killer.getDamage((opponent.killer.getHP()/2));
+            if(opponent.killer.getHP() == 1){
+                realDamage = opponent.killer.getDamage(1);
+            }else {
+                realDamage = opponent.killer.getDamage((opponent.killer.getHP() / 2));
+            }
             System.out.println(opponent.getName() + " killer -" + realDamage + "HP");
         }
         if(choice == 4 && (opponent.defender.isAlive()) == 1){
-            realDamage = opponent.defender.getDamage((opponent.defender.getHP()/2));
+            if(opponent.defender.getHP() == 1){
+                realDamage = opponent.defender.getDamage(1);
+            }else {
+                realDamage = opponent.defender.getDamage((opponent.defender.getHP() / 2));
+            }
             System.out.println(opponent.getName() + "defender -" + realDamage + "HP");
         }
     }

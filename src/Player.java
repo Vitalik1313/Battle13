@@ -31,7 +31,7 @@ public class Player {
         int realdamage = 0;
 
         Random defend = new Random();
-        System.out.println("Attack info:");
+        System.out.println(name + " attack info:");
         if((defend.nextInt((max - min) + 1) + min ) != 2) {
             max = damage;
             min = damage / 2;
@@ -95,13 +95,13 @@ public class Player {
         return name;
     }
 
-    public void barbarianGetAttacked(int damage){
+    public void barbarianGetAttacked(int damage, Player player){
         int max = 3;
         int min = 1;
         int realdamage = 0;
 
         Random defend = new Random();
-        System.out.println("Attack info:");
+        System.out.println(player.getName() + " attack info:");
         if((defend.nextInt((max - min) + 1) + min ) != 2) {
             max = damage;
             min = damage / 2;
