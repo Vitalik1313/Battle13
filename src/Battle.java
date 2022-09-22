@@ -1,16 +1,13 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-
-
 public class Battle {
-    private Player [] players = new Player[2];
+    private final Player [] players = new Player[2];
     private WriteFile file;
-    private String pathToFile;
+
     Battle(Player pl1, Player pl2){
-        pathToFile = "C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt";
         try {
-        file = new WriteFile(pathToFile);
+        file = new WriteFile();
         } catch(IOException exception){
             exception.printStackTrace();
         }
@@ -20,25 +17,34 @@ public class Battle {
 
     void startFight1vs1(){
         int i = 1;
+        String output = "";
         while(players[0].checkWin() == 1 && players[1].checkWin() == 1){
-            System.out.println("Action: " + i++ + "\n---------------------------");
+            output = output.concat("Action: " + i++ + "\n---------------------------\n");
+            System.out.println(output);
             this.printBarbarianInfo();
             this.fight1vs1();
-            System.out.println("---------------------------");
+            output = output.concat("---------------------------\n");
+            System.out.println(output);
             /*try {
                 Thread.sleep(3000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }*/
+            if(file.checkWriting())
+                file.appendString(output);
         }
         printWinner();
     }
 
     void printBarbarianInfo(){
-        for(int i = 0; i < players.length;i++){
-            System.out.println(players[i].getName() + " Barbarian HP - " + players[i].barbarian.getHP());
+        String output = "";
+        for (Player player : players) {
+            output = output.concat(player.getName() + " Barbarian HP - " + player.barbarian.getHP()+"\n");
+            System.out.println(output);
         }
-        System.out.print("\n");
+        output = output.concat("\n");
+        if(file.checkWriting())
+            file.appendString(output);
     }
 
     void startFight4vs4(){
@@ -50,38 +56,51 @@ public class Battle {
     }
 
     void printTeamInfo(){
-        for(int i = 0; i<players.length;i++) {
+        String output = "";
+        for (Player player : players) {
             System.out.println("---------------------------------------------- ");
-            System.out.println("Team - " + players[i].getName() + ":");
-            if (players[i].barbarian.isAlive() == 0) {
-                System.out.println("The Barbarian is dead");
+            System.out.println("Team - " + player.getName() + ":");
+            output = output.concat("----------------------------------------------\n" +
+                    "Team - " + player.getName() + ":\n");
+
+            if (player.barbarian.isAlive() == 0) {
+                output = output.concat("The Barbarian is dead\n");
             } else {
-                System.out.println("Barbarian HP: " + players[i].barbarian.getHP());
+                output = output.concat("Barbarian HP: " + player.barbarian.getHP() + "\n");
             }
-            if (players[i].healer.isAlive() == 0) {
-                System.out.println("The Healer is dead");
+            if (player.healer.isAlive() == 0) {
+                output = output.concat("The Healer is dead\n");
             } else {
-                System.out.println("Healer HP: " + players[i].healer.getHP());
+                output = output.concat("Healer HP: " + player.healer.getHP() + "\n");
             }
-            if (players[i].killer.isAlive() == 0) {
-                System.out.println("The Killer is dead");
+            if (player.killer.isAlive() == 0) {
+                output = output.concat("The Killer is dead\n");
             } else {
-                System.out.println("Killer HP: " + players[i].killer.getHP());
+                output = output.concat("Killer HP: " + player.killer.getHP() + "\n");
             }
-            if (players[i].defender.isAlive() == 0) {
-                System.out.println("The Defender is dead");
+            if (player.defender.isAlive() == 0) {
+                output = output.concat("The Defender is dead\n");
             } else {
-                System.out.println("Defender HP: " + players[i].defender.getHP());
+                output = output.concat("Defender HP: " + player.defender.getHP() + "\n");
             }
         }
+        output = output.concat("----------------------------------------------\n");
+        System.out.println(output);
+        if(file.checkWriting())
+            file.appendString(output);
     }
 
     void fight4vs4(){
         Scanner sc = new Scanner(System.in);
-        int choose = 0;
+        String output;
+        int choose;
         for(int i = 0;i < players.length;i++){
-            System.out.println("\n" + players[i].getName() + " choose the hero(1-3):");
+            output = "\n" + players[i].getName() + " choose the hero(1-3):\n";
+            System.out.print(output);
             choose = sc.nextInt();
+            output = output.concat(" " + choose + "\n");
+            if(file.checkWriting())
+                file.appendString(output);
             if(i == 0) {
                 switch (choose) {
                     case (1):
@@ -89,20 +108,28 @@ public class Battle {
                             players[i].barbarian.ability(players[i + 1]);
                             break;
                         }
-                        choose = 2;
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     case (2):
                         if(players[i].healer.isAlive() == 1) {
                             players[i].healer.ability(players[i],players[i+1]);
                             break;
                         }
-                        choose = 3;
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     case (3):
                         if(players[i].killer.isAlive() == 1) {
                             players[i].killer.ability(players[i + 1]);
                             break;
                         }
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     default:
-                        System.out.println("You lose!!!");
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
                         break;
                 }
             }
@@ -113,23 +140,32 @@ public class Battle {
                             players[i].barbarian.ability(players[i - 1]);
                             break;
                         }
-                        choose = 2;
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     case (2):
                         if(players[i].healer.isAlive() == 1) {
                             players[i].healer.ability(players[i],players[i-1]);
                             break;
                         }
-                        choose = 3;
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     case (3):
                         if(players[i].killer.isAlive() == 1) {
                             players[i].killer.ability(players[i - 1]);
                             break;
                         }
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
+                        break;
                     default:
-                        System.out.println("You lose!!!");
+                        output = output.concat("Wrong move!!!\n");
+                        System.out.println("Wrong move!!!");
                         break;
                 }
             }
+
         }
     }
 
@@ -145,9 +181,11 @@ public class Battle {
     }
 
     void printWinner(){
-        String output = "\t--------------------------\n" +
-                "\t|\t\t\t\t\t\t |\n" +
-                "\t|\t\t\t\t\t\t |\n";
+        String output = """
+                \t--------------------------
+                \t|\t\t\t\t\t\t |
+                \t|\t\t\t\t\t\t |
+                """;
         /*System.out.println("\t--------------------------");
         System.out.println("\t|\t\t\t\t\t\t |");
         System.out.println("\t|\t\t\t\t\t\t |");*/
@@ -161,9 +199,10 @@ public class Battle {
             output = output.concat("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t\n");
             //System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t");
         }
-        output = output.concat("\t|\t\t\t\t\t\t |\n" +
-                "\t|\t\t\t\t\t\t |\n" +
-                "\t--------------------------");
+        output = output.concat("""
+                \t|\t\t\t\t\t\t |
+                \t|\t\t\t\t\t\t |
+                \t--------------------------""");
 
         System.out.println(output);
 
@@ -176,7 +215,8 @@ public class Battle {
         System.out.println("\t--------------------------");*/
     }
 
-    public void setFile(){
+    public WriteFile getFile(){
         file.setSaveFile();
+        return file;
     }
 }

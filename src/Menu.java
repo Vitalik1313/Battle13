@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-
 
 public class Menu extends JFrame{
     private JPanel MainPanel;
@@ -12,6 +10,7 @@ public class Menu extends JFrame{
     private JButton a4VS4Button;
     private JButton showHeroesButton;
     private JButton EXITButton;
+    private JButton showLastFightButton;
     Battle battle;
     public Menu()  {
 
@@ -66,7 +65,8 @@ public class Menu extends JFrame{
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }*/
-                battle.setFile();
+                team.setFile(battle.getFile());
+                opponent.setFile(battle.getFile());
                 saveFightButton.setBackground(Color.GREEN);
             }
         });

@@ -42,10 +42,6 @@ public class Defender extends Hero {
         return this.HP;
     }
 
-    public Hero getHero(){
-        return this;
-    }
-
     public void setPower(int power) {
         this.power = power;
     }

@@ -18,16 +18,27 @@ public class Killer extends Hero {
     }
 
     public void ability(Player opponent){
-        System.out.println("Enter a number of hero to be damaged(1-4):");
+        WriteFile file = opponent.file;
+        String output;
+        output = "Enter a number of hero to be damaged(1-4):\n";
+        System.out.print(output);
+
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
-        int realDamage = 0;
+        output = output.concat(" " + choice + "\n");
+        if(file.checkWriting()) {
+            file.appendString(output);
+            output = "";
+        }
+
+        int realDamage;
         if(choice == 1 && (opponent.barbarian.isAlive()) == 1){
             if(opponent.barbarian.getHP() == 1){
                 realDamage = opponent.barbarian.getDamage(1);
             }else {
                 realDamage = opponent.barbarian.getDamage((opponent.barbarian.getHP() / 2));
             }
+            output = output.concat(opponent.getName() + " barbarian -" + realDamage + "HP\n");
             System.out.println(opponent.getName() + " barbarian -" + realDamage + "HP");
         }
         if(choice == 2 && (opponent.healer.isAlive()) == 1){
@@ -36,6 +47,7 @@ public class Killer extends Hero {
             }else {
                 realDamage = opponent.healer.getDamage((opponent.healer.getHP() / 2));
             }
+            output = output.concat(opponent.getName() + " healer -" + realDamage + "HP\n");
             System.out.println(opponent.getName() + " healer -" + realDamage + "HP");
         }
         if(choice == 3 && (opponent.killer.isAlive()) == 1){
@@ -44,6 +56,7 @@ public class Killer extends Hero {
             }else {
                 realDamage = opponent.killer.getDamage((opponent.killer.getHP() / 2));
             }
+            output = output.concat(opponent.getName() + " killer -" + realDamage + "HP\n");
             System.out.println(opponent.getName() + " killer -" + realDamage + "HP");
         }
         if(choice == 4 && (opponent.defender.isAlive()) == 1){
@@ -52,8 +65,11 @@ public class Killer extends Hero {
             }else {
                 realDamage = opponent.defender.getDamage((opponent.defender.getHP() / 2));
             }
+            output = output.concat(opponent.getName() + "defender -" + realDamage + "HP\n");
             System.out.println(opponent.getName() + "defender -" + realDamage + "HP");
         }
+        if(file.checkWriting())
+            file.appendString(output);
     }
 
     public int getHealed(int heal){

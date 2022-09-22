@@ -3,24 +3,18 @@ import java.io.*;
 public class WriteFile {
     private String textOfFile;
     private FileWriter file;
-    private PrintWriter printWriter;
-    private boolean saveHistory = false;
+    private boolean saveHistory;
 
-    public WriteFile(String path) throws FileNotFoundException {
+    public WriteFile() throws FileNotFoundException {
         try {
-            file = new FileWriter(path);
-            printWriter = new PrintWriter(file);
+            file = new FileWriter("C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        textOfFile = new String();
+        textOfFile = "";
         saveHistory = false;
-       // System.setOut(file);
     }
 
-    public boolean isSaveHistory() {
-        return saveHistory;
-    }
 
     public void appendString(String str) {
         textOfFile = textOfFile.concat(str);
@@ -36,12 +30,13 @@ public class WriteFile {
     }
 
     public boolean checkWriting(){
-        if(saveHistory == true){
-            return true;
-        }
-        return false;
+        return saveHistory;
     }
     public void setSaveFile(){
         saveHistory = true;
+    }
+
+    public FileWriter getFile() {
+        return file;
     }
 }
