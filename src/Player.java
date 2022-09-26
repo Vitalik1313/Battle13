@@ -23,13 +23,8 @@ public class Player {
         killer = new Killer();
         defender = new Defender();
         file = null;
-        try {
-            file = new WriteFile();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
+
 
     public void teamAttacked(int damage){
         int max = 3;
@@ -70,8 +65,6 @@ public class Player {
             }
             else
                 output = output.concat("Defender is dead\n");
-
-            System.out.println(output);
         }
         else{
             defender.ability(5);
@@ -89,14 +82,19 @@ public class Player {
         int min = (healer.getPower())-5;
         Random random = new Random();
         int heal;
+        String output;
         heal = barbarian.getHealed(random.nextInt((max - min) + 1) + min);
-        System.out.println(this.name + " barbarian +" + heal + "HP.");
+        output = this.name + " barbarian +" + heal + "HP.\n";
         heal = healer.getHealed(random.nextInt((max - min) + 1) + min);
-        System.out.println(this.name + " healer +" + heal + "HP.");
+        output = output.concat(this.name + " healer +" + heal + "HP.\n");
         heal = killer.getHealed(random.nextInt((max - min) + 1) + min);
-        System.out.println(this.name + " killer +" + heal + "HP.");
+        output = output.concat(this.name + " killer +" + heal + "HP.\n");
         heal = defender.getHealed(random.nextInt((max - min) + 1) + min);
-        System.out.println(this.name + " defender +" + heal + "HP.");
+        output = output.concat(this.name + " defender +" + heal + "HP.\n");
+
+        System.out.println(output);
+        if(file != null && file.checkWriting())
+            file.appendString(output);
     }
 
     int isTeamAlive(){
@@ -127,12 +125,14 @@ public class Player {
         return name;
     }
 
-    public void barbarianGetAttacked(int damage, Player player){
+    public String barbarianGetAttacked(int damage, Player player,String output){
         int max = 5;
         int min = 1;
         int realDamage;
 
         Random defend = new Random();
+
+        output = output.concat(player.getName() + " attack info:\n");
         System.out.println(player.getName() + " attack info:");
 
         if((defend.nextInt((max - min) + 1) + min ) != 2) {
@@ -140,12 +140,16 @@ public class Player {
             min = damage / 2;
             Random random = new Random();
             realDamage = barbarian.getDamage(random.nextInt((max - min) + 1) + min);
-            System.out.println(this.name + " barbarian -" + realDamage + "HP.\n");
+            output = output.concat(this.name + " barbarian -" + realDamage + "HP.\n");
+            System.out.println(this.name + " barbarian -" + realDamage + "HP.");
         }
         else{
+            output = output.concat("|||Blocked!|||\n");
             System.out.println("|||Blocked!|||");
             player.barbarian.setPower(player.barbarian.getPower() + 5);
         }
+        System.out.println();
+        return output;
     }
 
     public void setFile(WriteFile file) {

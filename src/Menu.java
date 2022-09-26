@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class Menu extends JFrame{
     private JPanel MainPanel;
@@ -56,20 +57,35 @@ public class Menu extends JFrame{
         saveFightButton.addActionListener (new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e)   {
-                String path = "C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt";
-                /*System.out.println("\n\tFight description was redirected to file.");
-                File file = new File(path);
-                try {
-                    PrintStream stream = new PrintStream(file);
-                    System.setOut(stream);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }*/
+                battle.setWriteToFile();
+                battle.setFile();
                 team.setFile(battle.getFile());
                 opponent.setFile(battle.getFile());
                 saveFightButton.setBackground(Color.GREEN);
             }
         });
 
+        showLastFightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+                try
+                {
+                    File file=new File("C:\\Users\\admin\\Desktop\\Лабораторні_JAVA\\FightHistory.txt");
+                    FileInputStream fis=new FileInputStream(file);
+
+                    int r;
+                    while((r=fis.read())!=-1)
+                    {
+                        System.out.print((char)r);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 }
