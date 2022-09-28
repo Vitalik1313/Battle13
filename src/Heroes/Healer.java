@@ -1,9 +1,13 @@
+package Heroes;
+
+import Player.*;
+
 public class Healer extends Hero {
     private int HP;
     private int power;
     private int alive;
 
-    Healer() {
+    public Healer() {
         this.HP = 70;
         this.power=15;
         this.alive=1;

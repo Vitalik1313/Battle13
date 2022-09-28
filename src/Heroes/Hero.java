@@ -1,5 +1,6 @@
-abstract class Hero {
-    abstract int getPower();
+package Heroes;
+
+public abstract class Hero {
     abstract int getDamage(int damage);
     abstract int getHealed(int heal);
     abstract int isAlive();

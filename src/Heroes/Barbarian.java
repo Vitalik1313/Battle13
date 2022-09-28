@@ -1,9 +1,14 @@
-public class Barbarian extends Hero{
+package Heroes;
+
+import Player.Player;
+
+
+public class Barbarian extends Hero {
     private int HP;
     private int power;
     int alive;
 
-    Barbarian() {
+    public Barbarian() {
         HP = 100;
         power = 20;
         alive = 1;
