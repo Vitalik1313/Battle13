@@ -36,11 +36,11 @@ public class Battle {
             output = this.fight1vs1(output);
             output = output.concat("---------------------------\n");
             System.out.println("---------------------------");
-            /*try {
-                Thread.sleep(3000);
+            try {
+                Thread.sleep(2000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
-            }*/
+            }
         }
         if(this.checkWriting())
             file.appendString(output);
@@ -202,11 +202,9 @@ public class Battle {
 
         if(players[0].checkWin() == 1){
             output = output.concat("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t\n");
-           // System.out.println("\t|\t\t" + players[0].getName() + " WIN" + "\t\t |\t");
         }
         else{
             output = output.concat("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t\n");
-            //System.out.println("\t|\t\t" + players[1].getName() + " WIN" + "\t |\t");
         }
         output = output.concat("""
                 \t|\t\t\t\t\t\t |
